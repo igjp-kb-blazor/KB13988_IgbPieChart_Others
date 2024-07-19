@@ -1,0 +1,49 @@
+﻿<div style="width: 400px; margin: auto; padding: 24px; display: flex; flex-direction: column; gap: 24px;">
+    <div>
+        <IgbItemLegend @ref="_legend" Orientation="LegendOrientation.Horizontal">
+        </IgbItemLegend>
+        <IgbPieChart Width="400px"
+                     Height="400px"
+                     Legend="_legend"
+                     DataSource="_data"
+                     StartAngle="-90"
+                     LabelMemberPath="@nameof(DataItem.Label)"
+                     ValueMemberPath="@nameof(DataItem.Value)"
+                     LabelsPosition="LabelsPosition.OutsideEnd"
+                     LabelExtent="30"
+                     RadiusFactor="0.7"
+                     OthersCategoryThreshold="0"
+                     OthersCategoryType="OthersCategoryType.Percent">
+        </IgbPieChart>
+    </div>
+</div>
+
+@code {
+    public class DataItem
+    {
+        public string? Label { get; set; }
+        public double? Value { get; set; }
+    }
+
+    private List<DataItem> _data = new()
+    {
+        new(){ Label = "Sales", Value = 50000 },
+        new(){ Label = "Marketing", Value = 35000 },
+        new(){ Label = "Operations", Value = 25000 },
+        new(){ Label = "Finance", Value = 40000 },
+        new(){ Label = "HR", Value = 30000 },   
+        new(){ Label = "IT", Value = 4000 },
+        new(){ Label = "Support", Value = 3000 },  
+
+    };
+
+    private IgbItemLegend? _legend;
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (firstRender)
+        {
+            this.StateHasChanged();
+        }
+    }
+}
